@@ -1,0 +1,14 @@
+body {
+  background-color: #f0f2f5;
+}
+
+.search-box {
+  background-color: #fff;
+  border: none !important;
+  height: 300px;
+  width: 300px;
+}
+
+.form-grup {
+  margin-bottom: 20px;
+}
