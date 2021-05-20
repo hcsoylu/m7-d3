@@ -5,7 +5,12 @@ import styled from "styled-components";
 
 const Navigator = () => {
   return (
-    <NavBar sticky="top" className="px-3 container" bg="primary" variant="dark">
+    <NavBar
+      sticky="top"
+      className="px-3 container d-flex justify-content-center"
+      bg="primary"
+      variant="dark"
+    >
       <HomeLink to="/">
         <Navbar.Brand>Lets Find Some Jobs!</Navbar.Brand>
       </HomeLink>

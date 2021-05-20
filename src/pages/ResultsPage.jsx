@@ -2,6 +2,12 @@ import React from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import styled from "styled-components";
 import JobCard from "../components/JobCard.jsx";
+import { connect } from "react-redux";
+
+const mapStateToProps = (state) => ({
+  favJobs: state.fav.jobs,
+  searchResults: state.search.jobList,
+});
 
 function ResultsPage(props) {
   return (
@@ -26,4 +32,4 @@ const RowContainer = styled(Row)`
   margin-top: 3vh;
 `;
 
-export default ResultsPage;
+export default connect(mapStateToProps)(ResultsPage);

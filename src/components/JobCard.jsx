@@ -1,7 +1,11 @@
 import React from "react";
 import { Button, Card } from "react-bootstrap";
 import { withRouter } from "react-router-dom";
-import { addToFavAction } from "../actions/index";
+import {
+  addToFavAction,
+  getJobDetailAction,
+  removeFromFavAction,
+} from "../actions/index";
 import { connect } from "react-redux";
 
 const mapStateToProps = (state) => {
@@ -10,9 +14,19 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
   addToFav: (jobObj) => dispatch(addToFavAction(jobObj)),
+  removeFromFav: (jobObj) => dispatch(removeFromFavAction(jobObj)),
+  getJobDetail: (jobId) => dispatch(getJobDetailAction(jobId)),
 });
 
-function JobCard({ history, jobDesc, submitJobId, addToFav }) {
+function JobCard({
+  fav,
+  history,
+  jobDesc,
+  getJobDetail,
+  addToFav,
+  removeFromFav,
+}) {
+  const isFav = fav.jobs.some((job) => job.id === jobDesc.id);
   return (
     <Card className="mb-2 mt-2">
       <Card.Header>{jobDesc.title}</Card.Header>
@@ -31,16 +45,29 @@ function JobCard({ history, jobDesc, submitJobId, addToFav }) {
             <Button
               variant="primary"
               onClick={() =>
-                submitJobId(jobDesc.id).then(
+                getJobDetail(jobDesc.id).then(
                   history.push(`/results/${jobDesc.id}`)
                 )
               }
             >
               Apply now!
             </Button>
-            <Button variant="outline-danger" onClick={() => addToFav(jobDesc)}>
-              Add to fav!
-            </Button>{" "}
+            {!isFav && (
+              <Button
+                variant="outline-danger"
+                onClick={() => addToFav(jobDesc)}
+              >
+                Add to fav!
+              </Button>
+            )}
+            {isFav && (
+              <Button
+                variant="outline-danger"
+                onClick={() => removeFromFav(jobDesc)}
+              >
+                remove to favs
+              </Button>
+            )}
           </div>
         </div>
       </Card.Body>

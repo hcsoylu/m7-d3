@@ -1,6 +1,11 @@
 import React from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import JobCard from "../components/JobCard.jsx";
+import { connect } from "react-redux";
+
+const mapStateToProps = (state) => ({
+  selectedJob: state.selectedJob.jobDetail,
+});
 
 const JobDetailPage = (props) => {
   return (
@@ -28,4 +33,4 @@ const JobDetailPage = (props) => {
   );
 };
 
-export default JobDetailPage;
+export default connect(mapStateToProps)(JobDetailPage);

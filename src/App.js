@@ -14,48 +14,48 @@ import {
 } from "react-router-dom";
 
 class App extends Component {
-  state = {
-    locationInput: "",
-    positionInput: "",
-    searchResults: [],
-    selectedJob: null,
-    isLoading: false,
-  };
+  // state = {
+  //   locationInput: "",
+  //   positionInput: "",
+  //   searchResults: [],
+  //   selectedJob: null,
+  //   isLoading: false,
+  // };
 
-  handleInput = (e) => {
-    let { name, value } = e.target;
-    console.log("ID OF THIS INPUT FIELD IS", name);
+  // handleInput = (e) => {
+  //   let { name, value } = e.target;
+  //   console.log("ID OF THIS INPUT FIELD IS", name);
 
-    this.setState({
-      ...this.state,
-      [name]: value,
-    });
-  };
+  //   this.setState({
+  //     ...this.state,
+  //     [name]: value,
+  //   });
+  // };
 
   // https://striveschool-api.herokuapp.com/api/jobs
   // https://jobs.github.com/positions.json
-  submitQuery = async (e) => {
-    e.preventDefault();
-    let baseUrl = "https://jobs.github.com/positions.json";
-    let locationQuery = `location=${this.state.locationInput}`;
-    let position = `description=${this.state.positionInput}`;
-    try {
-      let resp = await fetch(`${baseUrl}?${position}&${locationQuery}`);
-      if (resp.ok) {
-        let data = await resp.json();
-        console.log(data);
-        this.setState({
-          ...this.state,
-          searchResults: data,
-        });
-      } else {
-        console.error("something's wrong!!");
-      }
-      // <Redirect to='/results' />;
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // submitQuery = async (e) => {
+  //   e.preventDefault();
+  //   let baseUrl = "https://jobs.github.com/positions.json";
+  //   let locationQuery = `location=${this.state.locationInput}`;
+  //   let position = `description=${this.state.positionInput}`;
+  //   try {
+  //     let resp = await fetch(`${baseUrl}?${position}&${locationQuery}`);
+  //     if (resp.ok) {
+  //       let data = await resp.json();
+  //       console.log(data);
+  //       this.setState({
+  //         ...this.state,
+  //         searchResults: data,
+  //       });
+  //     } else {
+  //       console.error("something's wrong!!");
+  //     }
+  //     // <Redirect to='/results' />;
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   submitJobId = async (jobId) => {
     try {
@@ -84,15 +84,7 @@ class App extends Component {
         <Route
           path="/"
           exact
-          render={(routerProps) => (
-            <HomePage
-              {...routerProps}
-              handleInput={this.handleInput}
-              locationInput={this.state.locationInput}
-              positionInput={this.state.positionInput}
-              submitQuery={this.submitQuery}
-            />
-          )}
+          render={(routerProps) => <HomePage {...routerProps} />}
         />
         <Route
           path="/results"
@@ -100,7 +92,7 @@ class App extends Component {
           render={(routerProps) => (
             <ResultsPage
               {...routerProps}
-              searchResults={this.state.searchResults}
+              // searchResults={this.state.searchResults}
               submitJobId={this.submitJobId}
             />
           )}
@@ -115,12 +107,7 @@ class App extends Component {
         <Route
           path="/results/:id"
           exact
-          render={(routerProps) => (
-            <JobDetailPage
-              {...routerProps}
-              selectedJob={this.state.selectedJob}
-            />
-          )}
+          render={(routerProps) => <JobDetailPage {...routerProps} />}
         />
       </Router>
     );
